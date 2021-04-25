@@ -1,6 +1,7 @@
 package com.shop.myshop.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Discounts")
@@ -10,6 +11,10 @@ public class Discount {
     private String discountCode;
     private int discountValue;
 
+    private List<Order> orders;
+
+
+
     public Discount(){}
 
     public Discount(String code, int value) {
@@ -17,20 +22,29 @@ public class Discount {
         this.discountValue = value;
     }
 
-    public String getCode() {
+    public String getDiscountCode() {
         return discountCode;
     }
 
-    public void setCode(String code) {
-        this.discountCode = code;
+    public void setDiscountCode(String discountCode) {
+        this.discountCode = discountCode;
     }
 
-    public int getValue() {
+    public int getDiscountValue() {
         return discountValue;
     }
 
-    public void setValue(int value) {
-        this.discountValue = value;
+    public void setDiscountValue(int discountValue) {
+        this.discountValue = discountValue;
+    }
+
+    @OneToMany(mappedBy = "discount", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public void setId(Long id) {
